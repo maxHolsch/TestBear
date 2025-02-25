@@ -50,6 +50,18 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     setIsLoading(true);
     
     try {
+      // For demo/development purposes when API is not available
+      // This simulates responses without needing the actual API
+      if (!process.env.REACT_APP_USE_REAL_API) {
+        console.log("Using simulated responses - no actual API call made");
+        setTimeout(() => {
+          const simulatedResponse = getSimulatedResponse(userMessage, currentQuestion);
+          setMessages(prev => [...prev, { text: simulatedResponse, sender: 'assistant' }]);
+          setIsLoading(false);
+        }, 1500);
+        return;
+      }
+      
       // Prepare context about the current question to send to the API
       const questionContext = {
         questionText: currentQuestion.question,
@@ -68,7 +80,6 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         body: JSON.stringify({
           message: userMessage,
           questionContext,
-          // System prompt guidance focusing on heuristics-based approach
           systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking. 
           Your goal is to help students understand the underlying patterns and heuristics that make questions predictable and easy to solve.
           Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than deep content knowledge.
@@ -78,18 +89,67 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         }),
       });
       
+      if (!response.ok) {
+        throw new Error(`API responded with status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      
+      if (!data.response) {
+        throw new Error('No response data received from API');
+      }
       
       // Add assistant's response to chat
       setMessages(prev => [...prev, { text: data.response, sender: 'assistant' }]);
     } catch (error) {
       console.error('Error calling Claude API:', error);
+      
+      // Provide a user-friendly error message
       setMessages(prev => [...prev, { 
-        text: "Sorry, I'm having trouble connecting right now. Please try again later.", 
+        text: "I'm currently in demo mode and can't connect to my brain. In the real app, I'd provide personalized strategy advice for this question type!", 
         sender: 'assistant' 
       }]);
+      
+      // Then add a follow-up message with generic help
+      setTimeout(() => {
+        const genericHelp = getGenericHelpForQuestionType(currentQuestion);
+        setMessages(prev => [...prev, { 
+          text: genericHelp, 
+          sender: 'assistant' 
+        }]);
+      }, 1000);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // Helper function to provide generic advice when API is unavailable
+  const getGenericHelpForQuestionType = (question) => {
+    const questionType = question.explanation[0].replace("<strong>", "").replace("</strong>", "");
+    
+    if (questionType.includes("Vocabulary in Context")) {
+      return "For vocabulary in context questions, try replacing the word with each answer choice and see which one maintains the meaning. Don't rely on dictionary definitions alone - context is key!";
+    } else if (questionType.includes("Sentence Boundaries")) {
+      return "When dealing with sentence boundaries, check if each sentence has both a subject and a verb. Watch for fragments, run-ons, and comma splices. These are the most common sentence structure errors tested.";
+    } else if (questionType.includes("Transitions")) {
+      return "For transitions, focus on the relationship between the sentences before and after the transition. Is it a contrast, cause/effect, example, or continuation? Match this relationship to the appropriate transition word.";
+    } else {
+      return "Remember to use the process of elimination and look for patterns. SAT questions often test the same concepts in predictable ways!";
+    }
+  };
+
+  // Simulated responses for demo/development without API
+  const getSimulatedResponse = (userMessage, question) => {
+    const lowerCaseMessage = userMessage.toLowerCase();
+    
+    if (lowerCaseMessage.includes("hint") || lowerCaseMessage.includes("help")) {
+      return "Look for keywords in the passage that give context clues about the meaning. What action is the city council taking regarding the bridge? Are they stopping it or allowing it to move forward?";
+    } else if (lowerCaseMessage.includes("strategy") || lowerCaseMessage.includes("approach")) {
+      return "For vocabulary-in-context questions, always replace the word with each answer choice in the sentence. The correct answer should maintain both the grammatical structure and the intended meaning of the sentence.";
+    } else if (lowerCaseMessage.includes("hard") || lowerCaseMessage.includes("difficult")) {
+      return "This type of question can be tricky because 'sanctioned' has two almost opposite meanings! It can mean 'approved' or 'punished'. That's why context is crucial - look at what the city council is doing overall.";
+    } else {
+      return "To solve this efficiently, replace 'sanctioned' with each answer choice and see which one makes sense in context. Since the passage mentions 'citing economic benefits', the city council is likely approving rather than punishing the construction.";
     }
   };
 
