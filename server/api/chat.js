@@ -46,7 +46,7 @@ User's question: ${message}`
     res.json({ response: response.data.content[0].text });
   } catch (error) {
     console.error('Error calling Claude API:', error);
-    res.status(500).json({ error: 'Failed to get response from Claude' });
+    res.status(500).json({ error: 'Failed To get response from Claude' });
   }
 });
 
