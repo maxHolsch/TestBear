@@ -67,8 +67,8 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         correctAnswer: currentQuestion.correctAnswer
       };
       
-      // Only use the simulation as a fallback
-      if (process.env.NODE_ENV === 'development' && !process.env.REACT_APP_USE_REAL_API) {
+      // Development fallback if needed
+      if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_USE_SIMULATION === 'true') {
         console.log("Development mode: Using simulated responses");
         setTimeout(() => {
           const simulatedResponse = getSimulatedResponse(userMessage, currentQuestion);
@@ -78,9 +78,11 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         return;
       }
       
-      // Make API request to Claude
-      console.log("Attempting to call Anthropic API via /api/chat endpoint");
-      const response = await fetch('/api/chat', {
+      // Make API request to Claude - using the absolute URL to the server API endpoint
+      console.log("Calling Claude API via server endpoint");
+      const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api/chat';
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,9 +123,9 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     } catch (error) {
       console.error('Error calling Claude API:', error);
       
-      // Provide a user-friendly error message
+      // Provide a user-friendly error message with more details
       setMessages(prev => [...prev, { 
-        text: "I'm currently in demo mode and can't connect to my brain. In the real app, I'd provide personalized strategy advice for this question type!", 
+        text: `I'm having trouble connecting to my brain right now. Error: ${error.message}`, 
         sender: 'assistant' 
       }]);
       
