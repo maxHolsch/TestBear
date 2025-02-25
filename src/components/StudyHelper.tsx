@@ -1,8 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/StudyHelper.css';
 
+// Define proper types for the question object
+interface QuestionOption {
+  options: string[];
+  question: string;
+  correctAnswer: string;
+  explanation: string[];
+}
+
 interface StudyHelperProps {
-  currentQuestion: any;
+  currentQuestion: QuestionOption;
   questionIndex: number;
 }
 
@@ -124,7 +132,7 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
   };
 
   // Helper function to provide generic advice when API is unavailable
-  const getGenericHelpForQuestionType = (question) => {
+  const getGenericHelpForQuestionType = (question: QuestionOption) => {
     const questionType = question.explanation[0].replace("<strong>", "").replace("</strong>", "");
     
     if (questionType.includes("Vocabulary in Context")) {
@@ -139,7 +147,7 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
   };
 
   // Simulated responses for demo/development without API
-  const getSimulatedResponse = (userMessage, question) => {
+  const getSimulatedResponse = (userMessage: string, question: QuestionOption) => {
     const lowerCaseMessage = userMessage.toLowerCase();
     
     if (lowerCaseMessage.includes("hint") || lowerCaseMessage.includes("help")) {
