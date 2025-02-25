@@ -1,0 +1,121 @@
+/* Reading and Writing Section Specific Styles */
+
+/* Passage styling */
+.sat-passage {
+  background-color: #f8f9fa;
+  border-left: 4px solid #6c757d;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.sat-passage strong, .sat-question strong {
+  color: #0056b3;
+}
+
+.sat-question {
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.sat-passage u {
+  text-decoration: underline;
+  font-weight: bold;
+  color: #e63946;
+}
+
+/* Strategy step styling */
+.strategy-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #dee2e6;
+}
+
+.step-number {
+  background: #0056b3;
+  color: white;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.step-instruction {
+  font-weight: 500;
+}
+
+.answer-conclusion {
+  margin-top: 15px;
+  background-color: #d4edda;
+  border-left: 4px solid #28a745;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+
+.answer-details p {
+  margin-bottom: 10px;
+}
+
+/* Percentage spacer */
+.percentage-spacer {
+  display: inline-block;
+  width: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .reading-writing-page header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .header-logo {
+    margin-bottom: 10px;
+  }
+  
+  .questions-section {
+    padding: 15px;
+  }
+  
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .final-buttons {
+    margin-left: 0;
+    flex-direction: column;
+    width: 100%;
+  }
+}
+
+/* Animations for question transitions */
+.question-block {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Highlight for key terms in the passage */
+.key-term {
+  background-color: rgba(255, 193, 7, 0.2);
+  padding: 0 3px;
+  border-radius: 3px;
+} 
