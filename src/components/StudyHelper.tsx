@@ -81,7 +81,7 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
       // Make API request to Claude using a relative URL that works in all environments
       console.log("Calling Claude API via server endpoint");
       
-      // Use a relative URL that works in both development and production 
+      // Use a relative URL that works with proxy setup in package.json
       const apiUrl = '/api/chat';
       
       const response = await fetch(apiUrl, {
