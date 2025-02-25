@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import axios from 'axios';
 import '../styles/ReadingWriting.css';
+import '../styles/Chatbot.css';
 import StudyHelper from '../components/StudyHelper';
 
 const SatWritingRhetoricalPage: React.FC = () => {
@@ -105,7 +107,6 @@ const SatWritingRhetoricalPage: React.FC = () => {
         }
     ];
 
-
     const navigate = useNavigate();
     // If you still want to check user presence:
     const userFromCookie = Cookies.get('user');
@@ -120,6 +121,15 @@ const SatWritingRhetoricalPage: React.FC = () => {
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
     const [showStrategyGuide, setShowStrategyGuide] = useState(false);
 
+    // Chatbot states
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [chatMessages, setChatMessages] = useState<{ sender: string; text: string }[]>([
+        { sender: 'bot', text: 'Hi! I can help with SAT Writing questions. What would you like to know?' }
+    ]);
+    const [inputMessage, setInputMessage] = useState('');
+    const [isLoadingResponse, setIsLoadingResponse] = useState(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    
     const hasSetQuestions = useRef(false);
 
     // Add rhetorical skills strategies overview
@@ -175,6 +185,11 @@ const SatWritingRhetoricalPage: React.FC = () => {
             }, 800);
         }
     }, [navigate, user]);
+
+    // Scroll chat to bottom when new messages arrive
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [chatMessages]);
 
     // Animation for strategy cards
     useEffect(() => {
@@ -236,6 +251,56 @@ const SatWritingRhetoricalPage: React.FC = () => {
     const handlePrevious = () => {
         if (currentQuestionIndex > 0) {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
+        }
+    };
+
+    // Toggle chat open/closed
+    const toggleChat = () => {
+        setIsChatOpen(!isChatOpen);
+    };
+
+    // Send message to API
+    const sendMessage = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!inputMessage.trim()) return;
+
+        // Get current question for context
+        const currentQuestion = questions[currentQuestionIndex];
+        
+        // Add user message to chat
+        setChatMessages(prev => [...prev, { sender: 'user', text: inputMessage }]);
+        setInputMessage('');
+        setIsLoadingResponse(true);
+
+        try {
+            // Format question for API
+            const questionContext = {
+                questionNumber: currentQuestionIndex + 1,
+                questionText: currentQuestion.question.replace(/<[^>]*>/g, ''), // Strip HTML for API
+                options: currentQuestion.options,
+                questionType: 'SAT Writing Rhetorical Skills'
+            };
+            
+            // Send to API with appropriate format for existing endpoint
+            const response = await axios.post('/api/chat', {
+                message: inputMessage,
+                questionContext: questionContext,
+                systemPrompt: "You are a helpful SAT tutor. Answer the student's question about the SAT Writing Rhetorical Skills question they're working on. Be concise, clear, and helpful. Focus on strategies and explanations that will help them understand the concept."
+            });
+
+            // Add bot response to chat
+            setChatMessages(prev => [...prev, { 
+                sender: 'bot', 
+                text: response.data.response || "I'm not sure how to answer that. Could you try rephrasing your question?"
+            }]);
+        } catch (error) {
+            console.error('Error sending message:', error);
+            setChatMessages(prev => [...prev, { 
+                sender: 'bot', 
+                text: 'Sorry, I encountered an error. Please try again in a moment.'
+            }]);
+        } finally {
+            setIsLoadingResponse(false);
         }
     };
 
@@ -479,6 +544,56 @@ const SatWritingRhetoricalPage: React.FC = () => {
                 currentQuestion={currentQuestion} 
                 questionIndex={currentQuestionIndex} 
             />
+
+            {/* Chatbot Component */}
+            <div className="chatbot-container">
+                <button 
+                    className="chat-toggle-button" 
+                    onClick={toggleChat}
+                >
+                    {isChatOpen ? '✕' : '💬'}
+                </button>
+                
+                {isChatOpen && (
+                    <div className="chatbot-window">
+                        <div className="chatbot-header">
+                            <h3>SAT Writing Assistant</h3>
+                        </div>
+                        <div className="chatbot-messages">
+                            {chatMessages.map((msg, index) => (
+                                <div 
+                                    key={index} 
+                                    className={`chat-message ${msg.sender === 'user' ? 'user-message' : 'assistant-message'}`}
+                                >
+                                    {msg.text}
+                                </div>
+                            ))}
+                            {isLoadingResponse && (
+                                <div className="chat-message assistant-message">
+                                    <div className="typing-indicator">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
+                        <form className="chatbot-input" onSubmit={sendMessage}>
+                            <input
+                                type="text"
+                                value={inputMessage}
+                                onChange={(e) => setInputMessage(e.target.value)}
+                                placeholder="Ask about this question..."
+                                disabled={isLoadingResponse}
+                            />
+                            <button type="submit" disabled={isLoadingResponse || !inputMessage.trim()}>
+                                Send
+                            </button>
+                        </form>
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
