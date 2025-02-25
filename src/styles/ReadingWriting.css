@@ -118,4 +118,521 @@
   background-color: rgba(255, 193, 7, 0.2);
   padding: 0 3px;
   border-radius: 3px;
-} 
+}
+
+/* Strategy Guide Enhancements */
+
+/* Overlay animations */
+.overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Strategy Guide Container */
+.strategy-guide {
+  max-width: 900px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 30px;
+  background: linear-gradient(to bottom, #ffffff, #f8f9ff);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.strategy-title {
+  font-size: 28px;
+  color: #2a2b8d;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.strategy-title:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #4a4fe0, #e04a9c);
+  border-radius: 2px;
+}
+
+.strategy-intro {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 30px;
+  font-weight: 500;
+}
+
+/* Strategy Container with Grid Layout */
+.strategies-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin: 25px 0;
+}
+
+/* Strategy Cards with Animation */
+.strategy-card {
+  background: white;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eaeeff;
+  transition: all 0.3s ease;
+  transform: translateY(0);
+  position: relative;
+  overflow: hidden;
+  animation: slideUp 0.5s ease-out forwards;
+  animation-delay: calc(var(--order) * 0.1s);
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.strategy-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(74, 79, 224, 0.15);
+}
+
+.strategy-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(to bottom, #4a4fe0, #9f4ae0);
+  border-radius: 4px 0 0 4px;
+}
+
+.strategy-name {
+  color: #2a2b8d;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eaeeff;
+  display: flex;
+  align-items: center;
+}
+
+.strategy-name:before {
+  content: '📝';
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.strategy-card:nth-child(1) .strategy-name:before { content: '📚'; }
+.strategy-card:nth-child(2) .strategy-name:before { content: '✂️'; }
+.strategy-card:nth-child(3) .strategy-name:before { content: '🔄'; }
+
+.strategy-description {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+/* Strategy Steps Section */
+.strategy-steps {
+  background: #f8f9ff;
+  padding: 15px 18px;
+  border-radius: 8px;
+  margin: 20px 0;
+  border-left: 3px solid #4a4fe0;
+  transition: all 0.2s ease;
+}
+
+.strategy-steps:hover {
+  background: #eef0ff;
+  transform: scale(1.02);
+}
+
+.strategy-steps h5 {
+  margin-top: 0;
+  color: #4a4fe0;
+  font-size: 16px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.strategy-steps h5:before {
+  content: '🔍';
+  margin-right: 8px;
+}
+
+.strategy-steps ol {
+  margin: 0;
+  padding-left: 25px;
+}
+
+.strategy-steps li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+  color: #444;
+  position: relative;
+  padding-left: 5px;
+}
+
+.strategy-steps li:last-child {
+  margin-bottom: 0;
+}
+
+/* Time Saved Indicator */
+.time-saved {
+  background: #fff5e8;
+  padding: 12px 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  border: 1px dashed #ffc07c;
+  transition: all 0.2s ease;
+}
+
+.time-saved:hover {
+  background: #ffeed8;
+}
+
+.time-icon {
+  font-size: 1.4em;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.time-text {
+  color: #c06000;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* Strategy Footer */
+.strategy-footer {
+  background: #eef0ff;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px;
+  border: 1px solid #d6d9ff;
+  position: relative;
+}
+
+.strategy-footer:before {
+  content: '💡';
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  font-size: 30px;
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.strategy-tip {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 16px;
+  padding-left: 15px;
+}
+
+.strategy-footer .continue-button {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 25px;
+  transition: all 0.3s ease;
+}
+
+.strategy-footer .continue-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px rgba(74, 79, 224, 0.25);
+}
+
+/* Button Group */
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.strategy-button {
+  background: #f9f9f9;
+  color: #4a4fe0;
+  border: 2px solid #4a4fe0;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.strategy-button:hover {
+  background: #eef0ff;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(74, 79, 224, 0.15);
+}
+
+/* Strategy Reference Button */
+.strategy-reference-button {
+  background: rgba(255,255,255,0.15);
+  border: 2px solid white;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-reference-button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: all 0.8s ease;
+}
+
+.strategy-reference-button:hover:before {
+  left: 100%;
+}
+
+.strategy-reference-button:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+
+/* Explanation Enhancements */
+.explanation-title {
+  display: flex;
+  align-items: center;
+  color: #2a2b8d;
+  font-size: 18px;
+  margin: 15px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eaeeff;
+}
+
+.strategy-icon {
+  font-size: 1.3em;
+  margin-right: 10px;
+  animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.strategy-summary {
+  background: #eef0ff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-style: italic;
+  border-left: 3px solid #4a4fe0;
+}
+
+.strategy-summary p {
+  margin: 0;
+  color: #444;
+}
+
+.strategy-reminder {
+  background: #fff5e8;
+  padding: 12px 18px;
+  border-radius: 8px;
+  margin-top: 20px;
+  border-left: 3px solid #ffc07c;
+}
+
+.strategy-reminder p {
+  margin: 0;
+  color: #975000;
+}
+
+/* Benefits List */
+.benefits-list {
+  text-align: left;
+  margin: 20px 0;
+  padding-left: 10px;
+}
+
+.benefits-list li {
+  margin-bottom: 12px;
+  position: relative;
+  padding-left: 30px;
+  list-style-type: none;
+}
+
+.benefits-list li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4a4fe0;
+  font-weight: bold;
+  background: #eef0ff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* Strategy Approach Section for Dashboard */
+.strategy-approach-section {
+  margin: 30px 0;
+}
+
+.strategy-banner {
+  background: linear-gradient(to right, #f8f9ff, #eef0ff);
+  border-radius: 12px;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
+  box-shadow: 0 5px 20px rgba(74, 79, 224, 0.1);
+  border: 1px solid #d6d9ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.strategy-banner:before {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: linear-gradient(45deg, rgba(74, 79, 224, 0.1), transparent);
+  border-radius: 50%;
+  top: -100px;
+  right: -100px;
+  z-index: 0;
+}
+
+.strategy-content {
+  flex: 1;
+  min-width: 300px;
+  z-index: 1;
+}
+
+.strategy-description {
+  font-size: 16px;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.strategy-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.strategy-feature {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.strategy-feature:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(74, 79, 224, 0.15);
+}
+
+.feature-icon {
+  font-size: 22px;
+  background: #eef0ff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  color: #4a4fe0;
+}
+
+.feature-text {
+  font-weight: 500;
+  color: #333;
+}
+
+.strategy-action {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 250px;
+  z-index: 1;
+}
+
+.strategy-cta-button {
+  padding: 14px 25px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.strategy-cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(74, 79, 224, 0.25);
+}
+
+/* Add animation to strategy cards on page load */
+.strategy-card:nth-child(1) { --order: 1; }
+.strategy-card:nth-child(2) { --order: 2; }
+.strategy-card:nth-child(3) { --order: 3; }
+.strategy-card:nth-child(4) { --order: 4; }
+.strategy-card:nth-child(5) { --order: 5; } 

@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import '../styles/ReadingWriting.css';
+import StudyHelper from '../components/StudyHelper';
 
 const SatWritingRhetoricalPage: React.FC = () => {
     // We hard-code 5 rhetorical skills questions
@@ -117,8 +118,46 @@ const SatWritingRhetoricalPage: React.FC = () => {
     const [submitted, setSubmitted] = useState<Record<number, boolean>>({});
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [showWelcomeMessage, setShowWelcomeMessage] = useState(true);
+    const [showStrategyGuide, setShowStrategyGuide] = useState(false);
 
     const hasSetQuestions = useRef(false);
+
+    // Add rhetorical skills strategies overview
+    const rhetoricalSkillsStrategies = [
+        {
+            name: "Vocabulary in Context",
+            description: "Words often have multiple meanings. Don't rely on the most common definition - instead, replace the word with each answer choice and see which one maintains the author's intended meaning.",
+            steps: [
+                "Identify the word in context",
+                "Replace with your own simple word",
+                "Test each answer choice in the sentence",
+                "Eliminate choices that change the sentence's meaning"
+            ],
+            timesSaved: "1-2 minutes per question by avoiding dictionary-style memorization"
+        },
+        {
+            name: "Sentence Boundaries",
+            description: "The SAT consistently tests the same sentence structure rules. Learn to quickly identify fragments, run-ons, and comma splices without laborious grammar analysis.",
+            steps: [
+                "Check if each sentence has a subject and verb",
+                "Watch for dependent clauses masquerading as complete sentences",
+                "Identify coordinating conjunctions without commas (run-ons)",
+                "Look for comma splices (two independent clauses joined only by a comma)"
+            ],
+            timesSaved: "30-45 seconds per question by recognizing patterns instead of analyzing each word"
+        },
+        {
+            name: "Transitions",
+            description: "Don't read the entire passage to determine relationships between ideas. Instead, focus only on the sentences immediately before and after the transition.",
+            steps: [
+                "Identify the relationship between adjacent sentences (contrast, cause/effect, example, etc.)",
+                "Match this relationship to the transition word type",
+                "Eliminate options that create logical inconsistencies"
+            ],
+            timesSaved: "1 minute per question by analyzing only what matters"
+        },
+        // Add more strategies as needed
+    ];
 
     useEffect(() => {
         // If you want to restrict access if user not logged in:
@@ -136,6 +175,40 @@ const SatWritingRhetoricalPage: React.FC = () => {
             }, 800);
         }
     }, [navigate, user]);
+
+    // Animation for strategy cards
+    useEffect(() => {
+        const animateCards = () => {
+            const cards = document.querySelectorAll('.strategy-card');
+            cards.forEach((card, index) => {
+                // Animate cards with a staggered delay
+                setTimeout(() => {
+                    card.classList.add('animate');
+                }, 100 * index);
+            });
+        };
+
+        // Only run animation when strategy guide is shown
+        if (showStrategyGuide) {
+            setTimeout(animateCards, 100);
+        }
+    }, [showStrategyGuide]);
+
+    // Add a scroll effect to the strategy steps on hover
+    const handleStepHover = (e: React.MouseEvent<HTMLDivElement>) => {
+        const steps = e.currentTarget.querySelectorAll('li');
+        steps.forEach((step, index) => {
+            setTimeout(() => {
+                step.classList.add('highlight-step');
+            }, 100 * index);
+        });
+    };
+
+    // Reset the effect when mouse leaves
+    const handleStepLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+        const steps = e.currentTarget.querySelectorAll('li');
+        steps.forEach(step => step.classList.remove('highlight-step'));
+    };
 
     // Handle user selection
     const handleChange = (questionIndex: number, letter: string) => {
@@ -189,28 +262,86 @@ const SatWritingRhetoricalPage: React.FC = () => {
             {showWelcomeMessage && (
                 <div className="overlay">
                     <div className="overlay-content">
-                        <h3 className="welcome-title">Welcome to SAT Writing Practice!</h3>
-                        <p>We've prepared sample questions to help you master rhetorical skills and vocabulary in context.</p>
-                        <p>For each question:</p>
-                        <ol className="instruction-list">
-                            <li>Read the passage or sentence carefully</li>
-                            <li>Select the best answer from the choices provided</li> 
-                            <li>Click "Submit" to see the correct answer and detailed explanation</li>
-                            <li>Review the strategy tips to improve your approach to similar questions</li>
-                        </ol>
-                        <button
-                            className="continue-button rainbow-button"
-                            onClick={() => setShowWelcomeMessage(false)}
-                        >
-                            START PRACTICE
-                        </button>
+                        <h3 className="welcome-title">Master SAT Writing with Strategic Shortcuts</h3>
+                        <p>Elite SAT prep isn't about endless practice - it's about learning the <strong>right strategies</strong> that make questions predictable and easy to solve.</p>
+                        <p>In this module, you'll learn powerful heuristics for rhetorical skills questions that will:</p>
+                        <ul className="benefits-list">
+                            <li><strong>Save time</strong> - Solve questions in half the time</li>
+                            <li><strong>Increase accuracy</strong> - Know exactly what to look for</li>
+                            <li><strong>Reduce stress</strong> - Recognize patterns instead of overthinking</li>
+                        </ul>
+                        <div className="button-group">
+                            <button
+                                className="strategy-button"
+                                onClick={() => setShowStrategyGuide(true)}
+                            >
+                                VIEW STRATEGY GUIDE FIRST
+                            </button>
+                            <button
+                                className="continue-button rainbow-button"
+                                onClick={() => setShowWelcomeMessage(false)}
+                            >
+                                START PRACTICE
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
             
+            {showStrategyGuide && (
+                <div className="overlay">
+                    <div className="overlay-content strategy-guide">
+                        <h3 className="strategy-title">SAT Writing Rhetorical Skills - Strategy Guide</h3>
+                        <p className="strategy-intro">Top SAT scorers don't just practice more - they use these time-saving shortcuts:</p>
+                        
+                        <div className="strategies-container">
+                            {rhetoricalSkillsStrategies.map((strategy, index) => (
+                                <div key={index} className="strategy-card">
+                                    <h4 className="strategy-name">{strategy.name}</h4>
+                                    <p className="strategy-description">{strategy.description}</p>
+                                    <div className="strategy-steps">
+                                        <h5>Quick Steps:</h5>
+                                        <ol>
+                                            {strategy.steps.map((step, stepIndex) => (
+                                                <li key={stepIndex}>{step}</li>
+                                            ))}
+                                        </ol>
+                                    </div>
+                                    <div className="time-saved">
+                                        <span className="time-icon">⏱️</span> 
+                                        <span className="time-text">{strategy.timesSaved}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        
+                        <div className="strategy-footer">
+                            <p className="strategy-tip">
+                                <strong>Pro Tip:</strong> During the actual SAT, quickly identify the question type, then apply the matching strategy.
+                            </p>
+                            <button
+                                className="continue-button rainbow-button"
+                                onClick={() => {
+                                    setShowStrategyGuide(false);
+                                    setShowWelcomeMessage(false);
+                                }}
+                            >
+                                START PRACTICING WITH THESE STRATEGIES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <header>
                 <div className="logo header-logo rainbow-text">testbear</div>
                 <h2>SAT Writing &mdash; Rhetorical Skills</h2>
+                <button 
+                    className="strategy-reference-button"
+                    onClick={() => setShowStrategyGuide(true)}
+                >
+                    View Strategy Guide
+                </button>
             </header>
 
             <div className="content">
@@ -280,15 +411,24 @@ const SatWritingRhetoricalPage: React.FC = () => {
                         {/* Explanation (shown if submitted) */}
                         {submitted[currentQuestionIndex] && (
                             <div className="answer-details">
-                                <h4 className="explanation-title">Explanation</h4>
+                                <h4 className="explanation-title">
+                                    <span className="strategy-icon">🔑</span> 
+                                    Strategy Shortcut: {currentQuestion.explanation[0].replace("<strong>", "").replace("</strong>", "")}
+                                </h4>
                                 <div className="explanation-content">
-                                    {currentQuestion.explanation.map((line: string, index: number) => (
+                                    <div className="strategy-summary">
+                                        <p>This question type appears frequently on the SAT. Master this pattern to save time!</p>
+                                    </div>
+                                    {currentQuestion.explanation.slice(1).map((line: string, index: number) => (
                                         <div 
                                             key={index} 
                                             dangerouslySetInnerHTML={{ __html: line }}
                                             className="explanation-line"
                                         ></div>
                                     ))}
+                                    <div className="strategy-reminder">
+                                        <p><strong>Remember:</strong> Don't solve each question from scratch. Recognize the pattern, apply the strategy, and move on!</p>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -334,6 +474,11 @@ const SatWritingRhetoricalPage: React.FC = () => {
                     </div>
                 </div>
             </div>
+
+            <StudyHelper 
+                currentQuestion={currentQuestion} 
+                questionIndex={currentQuestionIndex} 
+            />
         </div>
     );
 };

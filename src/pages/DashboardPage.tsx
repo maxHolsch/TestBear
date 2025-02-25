@@ -47,6 +47,39 @@ const DashboardPage: React.FC = () => {
             <p className="subtitle">Continue your test prep journey</p>
           </section>
           
+          <section className="strategy-approach-section">
+            <div className="strategy-banner">
+              <div className="strategy-content">
+                <h2 className="section-title">Study Smarter, Not Harder</h2>
+                <p className="strategy-description">
+                  Elite test prep isn't about endless practice. It's about learning the <strong>strategic shortcuts</strong> that make questions predictable and easy to solve.
+                </p>
+                <div className="strategy-features">
+                  <div className="strategy-feature">
+                    <div className="feature-icon">⚡</div>
+                    <div className="feature-text">Learn powerful heuristics used by top scorers</div>
+                  </div>
+                  <div className="strategy-feature">
+                    <div className="feature-icon">🧠</div>
+                    <div className="feature-text">Recognize patterns instead of solving from scratch</div>
+                  </div>
+                  <div className="strategy-feature">
+                    <div className="feature-icon">🔍</div>
+                    <div className="feature-text">Focus on strategy over memorization</div>
+                  </div>
+                </div>
+              </div>
+              <div className="strategy-action">
+                <button 
+                  className="rainbow-button strategy-cta-button"
+                  onClick={() => alert("Strategy guides are under construction and coming soon! Check back later for our comprehensive approach to SAT heuristics.")}
+                >
+                  Explore Our Strategy Approach
+                </button>
+              </div>
+            </div>
+          </section>
+          
           <section className="practice-section">
             <h2 className="section-title">Practice Exams</h2>
             <div className="exam-categories">
