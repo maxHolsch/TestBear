@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import '../styles/ReadingWriting.css';
-import StudyHelper from '../components/StudyHelper';
 
 const SatWritingRhetoricalPage: React.FC = () => {
     // We hard-code 5 rhetorical skills questions
@@ -474,11 +473,6 @@ const SatWritingRhetoricalPage: React.FC = () => {
                     </div>
                 </div>
             </div>
-
-            <StudyHelper 
-                currentQuestion={currentQuestion} 
-                questionIndex={currentQuestionIndex} 
-            />
         </div>
     );
 };
