@@ -123,9 +123,9 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     } catch (error) {
       console.error('Error calling Claude API:', error);
       
-      // Provide a user-friendly error message with more details
+      // Provide a user-friendly error message with proper type checking
       setMessages(prev => [...prev, { 
-        text: `I'm having trouble connecting to my brain right now. Error: ${error.message}`, 
+        text: `I'm having trouble connecting to my brain right now. Error: ${error instanceof Error ? error.message : 'Unknown error'}`, 
         sender: 'assistant' 
       }]);
       
