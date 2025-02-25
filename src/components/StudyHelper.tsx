@@ -78,8 +78,10 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         return;
       }
       
-      // Make API request to Claude - using the absolute URL to the server API endpoint
+      // Make API request to Claude - using the correct API URL based on environment
       console.log("Calling Claude API via server endpoint");
+      
+      // In production, use a deployed API URL instead of localhost
       const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api/chat';
       
       const response = await fetch(apiUrl, {
