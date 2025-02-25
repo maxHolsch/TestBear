@@ -58,18 +58,6 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     setIsLoading(true);
     
     try {
-      // For demo/development purposes when API is not available
-      // This simulates responses without needing the actual API
-      if (!process.env.REACT_APP_USE_REAL_API) {
-        console.log("Using simulated responses - no actual API call made");
-        setTimeout(() => {
-          const simulatedResponse = getSimulatedResponse(userMessage, currentQuestion);
-          setMessages(prev => [...prev, { text: simulatedResponse, sender: 'assistant' }]);
-          setIsLoading(false);
-        }, 1500);
-        return;
-      }
-      
       // Prepare context about the current question to send to the API
       const questionContext = {
         questionText: currentQuestion.question,
@@ -79,7 +67,19 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         correctAnswer: currentQuestion.correctAnswer
       };
       
+      // Only use the simulation as a fallback
+      if (process.env.NODE_ENV === 'development' && !process.env.REACT_APP_USE_REAL_API) {
+        console.log("Development mode: Using simulated responses");
+        setTimeout(() => {
+          const simulatedResponse = getSimulatedResponse(userMessage, currentQuestion);
+          setMessages(prev => [...prev, { text: simulatedResponse, sender: 'assistant' }]);
+          setIsLoading(false);
+        }, 1500);
+        return;
+      }
+      
       // Make API request to Claude
+      console.log("Attempting to call Anthropic API via /api/chat endpoint");
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
@@ -88,12 +88,21 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         body: JSON.stringify({
           message: userMessage,
           questionContext,
-          systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking. 
+          systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking.
           Your goal is to help students understand the underlying patterns and heuristics that make questions predictable and easy to solve.
-          Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than deep content knowledge.
-          Explain how top scorers approach questions efficiently rather than solving each one from scratch.
-          Keep responses concise, practical, and focused on test-taking strategy.
-          For the current SAT Writing question, provide specific heuristics that apply.`
+          Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than just content knowledge.
+          
+          When explaining strategies:
+          - Emphasize pattern recognition 
+          - Teach elimination techniques
+          - Show how to save time with shortcuts
+          - Point out common traps students fall into
+          - Provide concrete step-by-step approaches
+          
+          Be encouraging, engaging, and use relatable examples to make your explanations memorable.
+          Your responses should be concise yet thorough, around 3-4 paragraphs maximum.
+          
+          For the current SAT Writing question about "${questionContext.questionType}", provide specific heuristics that apply.`
         }),
       });
       

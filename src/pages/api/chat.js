@@ -9,6 +9,14 @@ export default async function handler(req, res) {
   try {
     const { message, questionContext, systemPrompt } = req.body;
     
+    console.log("API endpoint called with:", {
+      messageLength: req.body.message?.length,
+      questionContext: {
+        type: req.body.questionContext?.questionType,
+        questionNumber: req.body.questionContext?.questionNumber
+      }
+    });
+
     // Construct message to send to Claude
     const response = await axios.post(
       'https://api.anthropic.com/v1/messages',
@@ -43,6 +51,9 @@ User's question: ${message}`
       }
     );
     
+    console.log("Attempting to call Anthropic API with key:", 
+      process.env.ANTHROPIC_API_KEY ? "API key exists" : "API key missing");
+
     res.status(200).json({ response: response.data.content[0].text });
   } catch (error) {
     console.error('Error calling Claude API:', error.message);
