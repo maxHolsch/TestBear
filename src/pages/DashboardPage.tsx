@@ -29,7 +29,7 @@ const DashboardPage: React.FC = () => {
               <ul>
                 <li><Link to="/dashboard" className="active">Dashboard</Link></li>
                 <li><Link to="/profile">My Progress</Link></li>
-                <li><Link to="/premium">Premium</Link></li>
+                <li><Link to="/premium">Pricing</Link></li>
               </ul>
             </nav>
             <div className="user-section">
@@ -163,8 +163,8 @@ const DashboardPage: React.FC = () => {
             <div className="premium-cta-card">
               <div className="premium-cta-content">
                 <h3>Unlock All Practice Tests</h3>
-                <p>Get unlimited access to all practice tests and personalized AI feedback with TestBear Premium.</p>
-                <Link to="/premium" className="rainbow-button premium-cta-button">Upgrade to Premium</Link>
+                <p>Get unlimited access to all practice tests and personalized AI feedback with TestBear. Try free for 7 days!</p>
+                <Link to="/premium" className="rainbow-button premium-cta-button">View Pricing</Link>
               </div>
               <div className="premium-cta-image">
                 {/* We'll add an image later */}

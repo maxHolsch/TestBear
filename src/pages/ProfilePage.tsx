@@ -61,7 +61,7 @@ const ProfilePage: React.FC = () => {
               <ul>
                 <li><Link to="/dashboard">Dashboard</Link></li>
                 <li><Link to="/profile" className="active">My Progress</Link></li>
-                <li><Link to="/premium">Premium</Link></li>
+                <li><Link to="/premium">Pricing</Link></li>
               </ul>
             </nav>
             <div className="user-section">

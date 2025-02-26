@@ -1,13 +1,14 @@
-# TestBear.ai - AI Study Tool
+# TestBear AI Tutoring Platform
 
-TestBear.ai is an AI-powered study companion for standardized tests, designed to help students prepare effectively for exams like the SAT, ACT, and more.
+TestBear is an interactive AI-powered platform designed to help students prepare for standardized tests through personalized practice sessions and feedback.
 
 ## Features
 
-- **User Authentication**: Simple login/signup system for personalized experience
-- **Practice Exams**: Interactive practice tests for various exam sections
-- **Performance Tracking**: Detailed analytics and progress monitoring
-- **Premium Subscription**: Access to advanced features and more practice materials (coming soon)
+- **User Authentication**: Secure login and registration
+- **Interactive Dashboard**: Access to various practice materials and progress tracking
+- **Progress Tracking**: Visualize your performance with detailed analytics
+- **Subscription Plans**: Access to all features with a 7-day free trial
+- **Responsive Design**: Works seamlessly across desktop and mobile devices
 
 ## Technology Stack
 
