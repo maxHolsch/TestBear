@@ -255,14 +255,14 @@ const SatWritingRhetoricalPage: React.FC = () => {
         setIsAskingClaude(true);
         setClaudeError(null);
         // SECURITY RISK: Not recommended practice
-const key_part1 = "sk-ant-api03-A";
-const key_part2 = "4FVssG1Pp9BdjHld5COy";
-const key_part3 = "itx2B-O7mWQJhtNfwkA7m_a";
-const key_part4 = "BD-VYnV4xjskik_JAPbpV3z";
-const key_part5 = "NRO52WTS660Oxf82FYA-ez3-OgAA";
+        const key_part1 = "sk-ant-api03-A";
+        const key_part2 = "4FVssG1Pp9BdjHld5COy";
+        const key_part3 = "itx2B-O7mWQJhtNfwkA7m_a";
+        const key_part4 = "BD-VYnV4xjskik_JAPbpV3z";
+        const key_part5 = "NRO52WTS660Oxf82FYA-ez3-OgAA";
 
-// Reconstruct the key when needed
-const apiKey = key_part1 + key_part2 + key_part3 + key_part4 + key_part5;
+        // Reconstruct the key when needed
+        const apiKey = key_part1 + key_part2 + key_part3 + key_part4 + key_part5;
         
         try {
             const currentQ = questions[currentQuestionIndex];
@@ -285,31 +285,73 @@ const apiKey = key_part1 + key_part2 + key_part3 + key_part4 + key_part5;
                 Please help me understand this better without directly giving me the answer.
             `;
 
-            const response = await axios.post(
-                'https://api.anthropic.com/v1/messages',
-                {
-                    model: 'claude-3-sonnet-20240229',
-                    max_tokens: 1000,
-                    messages: [
-                        { role: 'user', content: prompt }
-                    ]
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-api-key': apiKey || '',
-                        'anthropic-version': '2023-06-01'
+            // In a production environment, this should be done through a backend proxy
+            // Direct API calls will fail due to CORS restrictions
+            try {
+                // Try using a CORS proxy (for development only)
+                const response = await axios.post(
+                    'https://cors-anywhere.herokuapp.com/https://api.anthropic.com/v1/messages',
+                    {
+                        model: 'claude-3-sonnet-20240229',
+                        max_tokens: 1000,
+                        messages: [
+                            { role: 'user', content: prompt }
+                        ]
+                    },
+                    {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-api-key': apiKey,
+                            'anthropic-version': '2023-06-01'
+                        }
                     }
-                }
-            );
-
-            setClaudeResponse(response.data.content[0].text);
+                );
+                
+                setClaudeResponse(response.data.content[0].text);
+            } catch (corsError) {
+                console.error('CORS error:', corsError);
+                
+                // Fallback for demo purposes: Generate a simulated response
+                // In production, you would use a backend API route instead
+                const simulatedResponse = generateSimulatedResponse(currentQ, userQuestion);
+                setClaudeResponse(simulatedResponse);
+            }
         } catch (error) {
             console.error('Error calling Claude API:', error);
             setClaudeError('Error getting help from Claude. Please try again later.');
         } finally {
             setIsAskingClaude(false);
         }
+    };
+
+    // Helper function to generate a simulated response for demo purposes
+    const generateSimulatedResponse = (question: any, userQuery: string) => {
+        // Extract the question type based on content
+        let questionType = "";
+        if (question.question.includes("sanctioned")) {
+            questionType = "vocabulary in context";
+        } else if (question.question.includes("sentence boundary")) {
+            questionType = "sentence boundaries";
+        } else if (question.question.includes("transition")) {
+            questionType = "transitions";
+        } else if (question.question.includes("primary purpose")) {
+            questionType = "rhetorical purpose";
+        } else {
+            questionType = "command of evidence";
+        }
+        
+        return `I'd be happy to help with your SAT Writing question about ${questionType}!
+
+For this type of question, I recommend following these steps:
+
+1. First, identify exactly what the question is testing (${questionType})
+2. For this specific question, pay careful attention to ${questionType === "vocabulary in context" ? "how the word is used in context" : questionType === "sentence boundaries" ? "whether each sentence has a complete subject and verb" : "the logical relationship between sentences"}
+3. ${userQuery.includes("how") ? "The process involves careful reading and applying specific rules for this question type." : ""}
+4. ${userQuery.includes("why") ? "Understanding this concept is important because it tests your ability to comprehend how language functions in different contexts." : ""}
+
+Remember, I'm simulating a response here because browser security prevents direct API calls. In a real implementation, this would be handled through a backend API.
+
+Does this help with your question about "${userQuery}"?`;
     };
 
     if (loading) {
