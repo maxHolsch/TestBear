@@ -281,15 +281,14 @@ const SatWritingRhetoricalPage: React.FC = () => {
                 questionType: 'SAT Writing Rhetorical Skills'
             };
             
-            // Use the correct URL path that matches your server router configuration
-            // Using '/chat' instead of '/api/chat' since that's how your server route is defined
-            const response = await axios.post('/chat', {
+            // Use the correct API route format for Vercel
+            const response = await axios.post('/api/chat', {
                 message: inputMessage,
                 questionContext: questionContext,
                 systemPrompt: "You are a helpful SAT tutor. Answer the student's question about the SAT Writing Rhetorical Skills question they're working on. Be concise, clear, and helpful. Focus on strategies and explanations that will help them understand the concept."
             });
 
-            // Add bot response to chat - using the correct response property
+            // Add bot response to chat
             setChatMessages(prev => [...prev, { 
                 sender: 'bot', 
                 text: response.data.response || "I'm not sure how to answer that. Could you try rephrasing your question?"
