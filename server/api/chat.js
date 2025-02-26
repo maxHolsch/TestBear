@@ -5,7 +5,13 @@ const axios = require('axios');
 // Your Anthropic API key (should be stored in environment variables)
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
 
-router.post('/chat', async (req, res) => {
+// Export a handler function that Vercel can use as an API endpoint
+module.exports = async (req, res) => {
+  // Only allow POST requests
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
     const { message, questionContext, systemPrompt } = req.body;
     
@@ -23,6 +29,7 @@ router.post('/chat', async (req, res) => {
 ${questionContext.questionText}
 
 Options:
+<CURRENT_CURSOR_POSITION>
 A. ${questionContext.options[0]}
 B. ${questionContext.options[1]}
 C. ${questionContext.options[2]}
@@ -43,11 +50,9 @@ User's question: ${message}`
       }
     );
     
-    res.json({ response: response.data.content[0].text });
+    return res.status(200).json({ response: response.data.content[0].text });
   } catch (error) {
     console.error('Error calling Claude API:', error);
-    res.status(500).json({ error: 'Failed to get response from Claude' });
+    return res.status(500).json({ error: 'Failed to get response from Claude' });
   }
-});
-
-module.exports = router; 
+}; 
