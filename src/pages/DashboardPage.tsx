@@ -24,7 +24,7 @@ const DashboardPage: React.FC = () => {
       <header className="dashboard-header">
         <div className="container">
           <div className="header-content">
-            <div className="logo header-logo rainbow-text">testbear</div>
+            <div className="logo header-logo rainbow-text" onClick={() => navigate('/dashboard')} style={{ cursor: 'pointer' }}>testbear</div>
             <nav className="main-nav">
               <ul>
                 <li><Link to="/dashboard" className="active">Dashboard</Link></li>
