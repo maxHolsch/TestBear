@@ -121,6 +121,20 @@ const DashboardPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  <div className="practice-module-card upload-card">
+                    <h4>Upload Your Questions</h4>
+                    <div className="module-sections">
+                      <div className="module-section disabled">
+                        <div className="upload-section-content">
+                          <div className="feature-icon camera-icon">📷</div>
+                          <span className="section-name">Upload Test Questions</span>
+                          <span className="section-progress">Coming Soon</span>
+                        </div>
+                        <p className="upload-description">Snap a photo of your test questions for instant practice and analysis</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
@@ -154,22 +168,20 @@ const DashboardPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              
-              <div className="category-card upload-card">
-                <h3>Custom Practice</h3>
-                <div className="upload-module">
-                  <div className="upload-icon">
-                    <span className="icon">📷</span>
-                    <span className="icon">📁</span>
+                  
+                  <div className="practice-module-card upload-card">
+                    <h4>Upload Your Questions</h4>
+                    <div className="module-sections">
+                      <div className="module-section disabled">
+                        <div className="upload-section-content">
+                          <div className="feature-icon camera-icon">📷</div>
+                          <span className="section-name">Upload Test Questions</span>
+                          <span className="section-progress">Coming Soon</span>
+                        </div>
+                        <p className="upload-description">Snap a photo of your test questions for instant practice and analysis</p>
+                      </div>
+                    </div>
                   </div>
-                  <h4>Upload Test Questions</h4>
-                  <p className="upload-description">Scan or upload your own practice questions for personalized feedback</p>
-                  <div className="coming-soon-badge">Coming Soon</div>
-                  <button className="upload-button disabled">
-                    Upload Questions
-                  </button>
                 </div>
               </div>
             </div>

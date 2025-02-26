@@ -336,8 +336,8 @@ const PremiumPage: React.FC = () => {
                 background: '#fff',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
               }}>
-                <h3 style={{ marginTop: 0, marginBottom: '10px', fontSize: '1.2rem' }}>Do you offer discounts for students?</h3>
-                <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>Yes! We offer special discounts for students with a valid .edu email address. Contact our support team for more information.</p>
+                <h3 style={{ marginTop: 0, marginBottom: '10px', fontSize: '1.2rem' }}>Do you offer discounts/scholarships?</h3>
+                <p style={{ margin: 0, color: '#555', lineHeight: '1.6' }}>Yes! We offer special discounts for students who have a demonstrated need for financial assistance. Contact our support team for more information.</p>
               </div>
             </div>
           </section>
