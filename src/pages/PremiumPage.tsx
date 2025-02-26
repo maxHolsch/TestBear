@@ -53,13 +53,7 @@ const PremiumPage: React.FC = () => {
           </section>
           
           <section className="premium-features">
-            <div className="feature-grid">
-              <div className="feature-card">
-                <div className="feature-icon">📚</div>
-                <h3>Unlimited Practice Tests</h3>
-                <p>Access our complete library of practice tests for SAT, ACT, AP exams, and more.</p>
-              </div>
-              
+            <div className="feature-grid" style={{ display: 'flex', justifyContent: 'space-between' }}>
               <div className="feature-card">
                 <div className="feature-icon">🤖</div>
                 <h3>AI-Powered Feedback</h3>
@@ -77,18 +71,6 @@ const PremiumPage: React.FC = () => {
                 <h3>Personalized Study Plans</h3>
                 <p>Get custom study plans tailored to your strengths, weaknesses, and goals.</p>
               </div>
-              
-              <div className="feature-card">
-                <div className="feature-icon">📝</div>
-                <h3>Essay Grading</h3>
-                <p>Submit your practice essays for expert AI evaluation and feedback.</p>
-              </div>
-              
-              <div className="feature-card">
-                <div className="feature-icon">🏆</div>
-                <h3>Score Prediction</h3>
-                <p>Get accurate predictions of your potential test scores based on your practice results.</p>
-              </div>
             </div>
           </section>
           
@@ -100,7 +82,7 @@ const PremiumPage: React.FC = () => {
                   <h3>Monthly</h3>
                   <div className="price">
                     <span className="currency">$</span>
-                    <span className="amount">14</span>
+                    <span className="amount">5</span>
                     <span className="period">/month</span>
                   </div>
                 </div>
@@ -122,10 +104,10 @@ const PremiumPage: React.FC = () => {
                   <h3>Annual</h3>
                   <div className="price">
                     <span className="currency">$</span>
-                    <span className="amount">99</span>
+                    <span className="amount">25</span>
                     <span className="period">/year</span>
                   </div>
-                  <div className="savings">Save $69 per year</div>
+                  <div className="savings">Save $35 per year</div>
                 </div>
                 <div className="pricing-features">
                   <ul>
