@@ -156,6 +156,22 @@ const DashboardPage: React.FC = () => {
                   </div>
                 </div>
               </div>
+              
+              <div className="category-card upload-card">
+                <h3>Custom Practice</h3>
+                <div className="upload-module">
+                  <div className="upload-icon">
+                    <span className="icon">📷</span>
+                    <span className="icon">📁</span>
+                  </div>
+                  <h4>Upload Test Questions</h4>
+                  <p className="upload-description">Scan or upload your own practice questions for personalized feedback</p>
+                  <div className="coming-soon-badge">Coming Soon</div>
+                  <button className="upload-button disabled">
+                    Upload Questions
+                  </button>
+                </div>
+              </div>
             </div>
           </section>
           
