@@ -85,7 +85,7 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     } catch (error) {
       console.error('Error calling Claude API:', error);
       setMessages(prev => [...prev, { 
-        text: "Sorry, I'm having trouble connecting right now. Please try again later.", 
+        text: "Sorry, chatbot functions are currently only available for beta testers. Please join our waitlist to access this feature.", 
         sender: 'assistant' 
       }]);
     } finally {
