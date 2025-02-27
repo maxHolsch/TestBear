@@ -135,7 +135,7 @@ const DashboardPage: React.FC = () => {
                           </div>
                           <div className="upload-text-container">
                             <h5 className="upload-title">Upload Test Questions</h5>
-                            <p className="upload-description">Snap a photo of any test question and get instant analysis</p>
+                            <p className="upload-description"> </p>
                             <div className="coming-soon-badge">Coming Soon!</div>
                           </div>
                         </div>
@@ -189,7 +189,7 @@ const DashboardPage: React.FC = () => {
                           </div>
                           <div className="upload-text-container">
                             <h5 className="upload-title">Upload Test Questions</h5>
-                            <p className="upload-description">Snap a photo of any test question and get instant analysis</p>
+                            <p className="upload-description"> </p>
                             <div className="coming-soon-badge">Coming Soon!</div>
                           </div>
                         </div>
