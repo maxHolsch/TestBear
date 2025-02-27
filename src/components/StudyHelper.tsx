@@ -1,14 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
 import '../styles/StudyHelper.css';
 
+interface QuestionContext {
+  questionText: string;
+  questionNumber: number;
+  questionType: string;
+  options: string[];
+  correctAnswer: string;
+}
+
 interface StudyHelperProps {
-  currentQuestion: any;
+  currentQuestion: {
+    question: string;
+    options: string[];
+    correctAnswer: string;
+    explanation: string[];
+  };
   questionIndex: number;
+}
+
+interface Message {
+  text: string;
+  sender: 'user' | 'assistant';
 }
 
 const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionIndex }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Array<{text: string, sender: 'user' | 'assistant'}>>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -51,7 +69,7 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
     
     try {
       // Prepare context about the current question to send to the API
-      const questionContext = {
+      const questionContext: QuestionContext = {
         questionText: currentQuestion.question,
         questionNumber: questionIndex + 1,
         questionType: currentQuestion.explanation[0].replace("<strong>", "").replace("</strong>", ""),
@@ -59,32 +77,60 @@ const StudyHelper: React.FC<StudyHelperProps> = ({ currentQuestion, questionInde
         correctAnswer: currentQuestion.correctAnswer
       };
       
-      // Make API request to Claude
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          message: userMessage,
-          questionContext,
-          // System prompt guidance focusing on heuristics-based approach
-          systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking. 
-          Your goal is to help students understand the underlying patterns and heuristics that make questions predictable and easy to solve.
-          Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than deep content knowledge.
-          Explain how top scorers approach questions efficiently rather than solving each one from scratch.
-          Keep responses concise, practical, and focused on test-taking strategy.
-          For the current SAT Writing question, provide specific heuristics that apply.`
-        }),
-      });
+      // Get API base URL - use relative paths for production and absolute paths for development
+      const apiBaseUrl = typeof window !== 'undefined' && window.location.hostname === 'localhost' 
+        ? 'http://localhost:3000' 
+        : '';
+      
+      // Make API request - try the OpenAI endpoint first
+      let response;
+      try {
+        response = await fetch(`${apiBaseUrl}/api/ask-gpt`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            questionContext,
+            // System prompt guidance focusing on heuristics-based approach
+            systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking. 
+            Your goal is to help students understand the underlying patterns and heuristics that make questions predictable and easy to solve.
+            Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than deep content knowledge.
+            Explain how top scorers approach questions efficiently rather than solving each one from scratch.
+            Keep responses concise, practical, and focused on test-taking strategy.
+            For the current SAT Writing question, provide specific heuristics that apply.`
+          }),
+        });
+      } catch (error) {
+        // If the first endpoint fails, try the fallback endpoint
+        console.log('Falling back to original endpoint...');
+        response = await fetch(`${apiBaseUrl}/api/chat`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            message: userMessage,
+            questionContext,
+            // System prompt guidance focusing on heuristics-based approach
+            systemPrompt: `You are an expert SAT tutor specializing in strategic approaches to test-taking. 
+            Your goal is to help students understand the underlying patterns and heuristics that make questions predictable and easy to solve.
+            Focus on teaching time-saving shortcuts, pattern recognition, and strategic elimination techniques rather than deep content knowledge.
+            Explain how top scorers approach questions efficiently rather than solving each one from scratch.
+            Keep responses concise, practical, and focused on test-taking strategy.
+            For the current SAT Writing question, provide specific heuristics that apply.`
+          }),
+        });
+      }
       
       const data = await response.json();
       
       // Add assistant's response to chat
-      setMessages(prev => [...prev, { text: data.response, sender: 'assistant' }]);
+      setMessages((prev: Message[]) => [...prev, { text: data.response, sender: 'assistant' }]);
     } catch (error) {
-      console.error('Error calling Claude API:', error);
-      setMessages(prev => [...prev, { 
+      console.error('Error calling AI API:', error);
+      setMessages((prev: Message[]) => [...prev, { 
         text: "Sorry, I'm having trouble connecting right now. Please try again later.", 
         sender: 'assistant' 
       }]);
