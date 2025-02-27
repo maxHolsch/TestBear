@@ -128,20 +128,16 @@ const DashboardPage: React.FC = () => {
                       <div className="module-section disabled">
                         <div className="upload-section-content">
                           <div className="feature-icon camera-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M12 15.2C13.7673 15.2 15.2 13.7673 15.2 12C15.2 10.2327 13.7673 8.8 12 8.8C10.2327 8.8 8.8 10.2327 8.8 12C8.8 13.7673 10.2327 15.2 12 15.2Z" fill="currentColor"/>
                               <path d="M9 2L7.17 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4H16.83L15 2H9ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="currentColor"/>
                             </svg>
                           </div>
                           <div className="upload-text-container">
-                            <span className="section-name">Upload Test Questions</span>
-                            <div className="coming-soon-container">
-                              <span className="section-progress coming-soon-badge">Coming Soon!</span>
-                            </div>
+                            <h5 className="upload-title">Upload Test Questions</h5>
+                            <p className="upload-description">Snap a photo of any test question and get instant analysis</p>
+                            <div className="coming-soon-badge">Coming Soon!</div>
                           </div>
-                        </div>
-                        <div className="upload-description-container">
-                          <p className="upload-description">Snap a photo of your test questions for instant practice and analysis</p>
                         </div>
                       </div>
                     </div>
@@ -186,20 +182,16 @@ const DashboardPage: React.FC = () => {
                       <div className="module-section disabled">
                         <div className="upload-section-content">
                           <div className="feature-icon camera-icon">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M12 15.2C13.7673 15.2 15.2 13.7673 15.2 12C15.2 10.2327 13.7673 8.8 12 8.8C10.2327 8.8 8.8 10.2327 8.8 12C8.8 13.7673 10.2327 15.2 12 15.2Z" fill="currentColor"/>
                               <path d="M9 2L7.17 4H4C2.9 4 2 4.9 2 6V18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4H16.83L15 2H9ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17Z" fill="currentColor"/>
                             </svg>
                           </div>
                           <div className="upload-text-container">
-                            <span className="section-name">Upload Test Questions</span>
-                            <div className="coming-soon-container">
-                              <span className="section-progress coming-soon-badge">Coming Soon!</span>
-                            </div>
+                            <h5 className="upload-title">Upload Test Questions</h5>
+                            <p className="upload-description">Snap a photo of any test question and get instant analysis</p>
+                            <div className="coming-soon-badge">Coming Soon!</div>
                           </div>
-                        </div>
-                        <div className="upload-description-container">
-                          <p className="upload-description">Snap a photo of your test questions for instant practice and analysis</p>
                         </div>
                       </div>
                     </div>

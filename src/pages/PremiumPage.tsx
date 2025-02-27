@@ -63,77 +63,41 @@ const PremiumPage: React.FC = () => {
             }}>
               <div className="feature-card" style={{ 
                 flex: '1 1 300px', 
-                padding: '35px 30px',
+                padding: '30px 25px', 
                 borderRadius: '12px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                 background: '#fff',
-                textAlign: 'center',
-                minHeight: '320px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
+                textAlign: 'center'
               }}>
-                <div>
-                  <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '20px' }}>🤖</div>
-                  <h3 style={{ margin: '0 0 20px', fontSize: '1.3rem', lineHeight: '1.4' }}>AI-Powered Feedback</h3>
-                  <p style={{ 
-                    lineHeight: '1.7', 
-                    color: '#555',
-                    fontSize: '1rem',
-                    margin: '0 auto',
-                    maxWidth: '280px'
-                  }}>Receive detailed, personalized feedback on your performance and where to improve.</p>
-                </div>
+                <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '15px' }}>🤖</div>
+                <h3 style={{ margin: '0 0 15px', fontSize: '1.4rem' }}>AI-Powered Feedback</h3>
+                <p style={{ lineHeight: '1.6', color: '#555' }}>Receive detailed, personalized feedback on your performance and where to improve.</p>
               </div>
               
               <div className="feature-card" style={{ 
                 flex: '1 1 300px', 
-                padding: '35px 30px',
+                padding: '30px 25px', 
                 borderRadius: '12px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                 background: '#fff',
-                textAlign: 'center',
-                minHeight: '320px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
+                textAlign: 'center'
               }}>
-                <div>
-                  <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '20px' }}>📊</div>
-                  <h3 style={{ margin: '0 0 20px', fontSize: '1.3rem', lineHeight: '1.4' }}>Advanced Analytics</h3>
-                  <p style={{ 
-                    lineHeight: '1.7', 
-                    color: '#555',
-                    fontSize: '1rem',
-                    margin: '0 auto',
-                    maxWidth: '280px'
-                  }}>Track your progress over time with detailed performance metrics and insights.</p>
-                </div>
+                <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '15px' }}>📊</div>
+                <h3 style={{ margin: '0 0 15px', fontSize: '1.4rem' }}>Advanced Analytics</h3>
+                <p style={{ lineHeight: '1.6', color: '#555' }}>Track your progress over time with detailed performance metrics and insights.</p>
               </div>
               
               <div className="feature-card" style={{ 
                 flex: '1 1 300px', 
-                padding: '35px 30px',
+                padding: '30px 25px', 
                 borderRadius: '12px',
                 boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
                 background: '#fff',
-                textAlign: 'center',
-                minHeight: '320px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
+                textAlign: 'center'
               }}>
-                <div>
-                  <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '20px' }}>🎯</div>
-                  <h3 style={{ margin: '0 0 20px', fontSize: '1.3rem', lineHeight: '1.4' }}>Personalized Study Plans</h3>
-                  <p style={{ 
-                    lineHeight: '1.7', 
-                    color: '#555',
-                    fontSize: '1rem',
-                    margin: '0 auto',
-                    maxWidth: '280px'
-                  }}>Get custom study plans tailored to your strengths, weaknesses, and goals.</p>
-                </div>
+                <div className="feature-icon" style={{ fontSize: '40px', marginBottom: '15px' }}>🎯</div>
+                <h3 style={{ margin: '0 0 15px', fontSize: '1.4rem' }}>Personalized Study Plans</h3>
+                <p style={{ lineHeight: '1.6', color: '#555' }}>Get custom study plans tailored to your strengths, weaknesses, and goals.</p>
               </div>
             </div>
           </section>
@@ -149,14 +113,13 @@ const PremiumPage: React.FC = () => {
               <div className="pricing-card" style={{ 
                 flex: '1 1 300px',
                 maxWidth: '350px',
-                padding: '40px 30px',
+                padding: '35px 25px',
                 borderRadius: '12px',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
                 background: '#fff',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'column',
-                minHeight: '500px'
+                flexDirection: 'column'
               }}>
                 <div className="pricing-header" style={{ marginBottom: '25px', textAlign: 'center' }}>
                   <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Monthly</h3>
@@ -166,23 +129,13 @@ const PremiumPage: React.FC = () => {
                     <span className="period" style={{ fontSize: '1rem', color: '#666' }}>/month</span>
                   </div>
                 </div>
-                <div className="pricing-features" style={{ 
-                  marginBottom: '30px', 
-                  flexGrow: 1,
-                  padding: '0 15px'
-                }}>
+                <div className="pricing-features" style={{ marginBottom: '30px', flexGrow: 1 }}>
                   <ul style={{ 
                     listStyleType: 'none', 
                     padding: 0,
-                    margin: 0,
-                    fontSize: '1.05rem'
+                    margin: 0
                   }}>
-                    <li style={{ 
-                      margin: '15px 0',
-                      paddingLeft: '24px', 
-                      position: 'relative',
-                      lineHeight: '1.6'
-                    }}>All features</li>
+                    <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>All features</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>Cancel anytime</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>30-day money-back guarantee</li>
                   </ul>
@@ -202,7 +155,7 @@ const PremiumPage: React.FC = () => {
               <div className="pricing-card popular" style={{ 
                 flex: '1 1 300px',
                 maxWidth: '350px',
-                padding: '40px 30px',
+                padding: '35px 25px',
                 borderRadius: '12px',
                 boxShadow: '0 6px 20px rgba(107, 93, 227, 0.15)',
                 background: '#fff',
@@ -237,23 +190,13 @@ const PremiumPage: React.FC = () => {
                     fontSize: '0.9rem'
                   }}>Save $35 per year</div>
                 </div>
-                <div className="pricing-features" style={{ 
-                  marginBottom: '30px', 
-                  flexGrow: 1,
-                  padding: '0 15px'
-                }}>
+                <div className="pricing-features" style={{ marginBottom: '30px', flexGrow: 1 }}>
                   <ul style={{ 
                     listStyleType: 'none', 
                     padding: 0,
-                    margin: 0,
-                    fontSize: '1.05rem'
+                    margin: 0
                   }}>
-                    <li style={{ 
-                      margin: '15px 0',
-                      paddingLeft: '24px', 
-                      position: 'relative',
-                      lineHeight: '1.6'
-                    }}>All features</li>
+                    <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>All features</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>Priority support</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>30-day money-back guarantee</li>
                   </ul>
@@ -273,14 +216,13 @@ const PremiumPage: React.FC = () => {
               <div className="pricing-card education" style={{ 
                 flex: '1 1 300px',
                 maxWidth: '350px',
-                padding: '40px 30px',
+                padding: '35px 25px',
                 borderRadius: '12px',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
                 background: '#fff',
                 position: 'relative',
                 display: 'flex',
-                flexDirection: 'column',
-                minHeight: '500px'
+                flexDirection: 'column'
               }}>
                 <div className="education-badge" style={{
                   position: 'absolute',
@@ -300,23 +242,13 @@ const PremiumPage: React.FC = () => {
                   </div>
                   <div className="savings" style={{ fontSize: '0.9rem', color: '#666' }}>Volume discounts available</div>
                 </div>
-                <div className="pricing-features" style={{ 
-                  marginBottom: '30px', 
-                  flexGrow: 1,
-                  padding: '0 15px'
-                }}>
+                <div className="pricing-features" style={{ marginBottom: '30px', flexGrow: 1 }}>
                   <ul style={{ 
                     listStyleType: 'none', 
                     padding: 0,
-                    margin: 0,
-                    fontSize: '1.05rem'
+                    margin: 0
                   }}>
-                    <li style={{ 
-                      margin: '15px 0',
-                      paddingLeft: '24px', 
-                      position: 'relative',
-                      lineHeight: '1.6'
-                    }}>School-wide access for all students</li>
+                    <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>School-wide access for all students</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>Teacher dashboards and analytics</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>Custom curriculum integration</li>
                     <li style={{ margin: '12px 0', paddingLeft: '24px', position: 'relative' }}>SAT school success insights</li>
@@ -462,28 +394,6 @@ const PremiumPage: React.FC = () => {
           <p style={{ margin: 0, color: '#888' }}>&copy; 2023 TestBear.ai - All rights reserved</p>
         </div>
       </footer>
-      
-      <style>{`
-        @media (max-width: 768px) {
-          .feature-card, .pricing-card {
-            padding: 25px 20px !important;
-            min-height: auto !important;
-          }
-          
-          .feature-card h3 {
-            font-size: 1.2rem !important;
-          }
-          
-          .pricing-card {
-            max-width: 100% !important;
-            margin-bottom: 30px;
-          }
-          
-          .pricing-features li {
-            font-size: 1rem !important;
-          }
-        }
-      `}</style>
     </div>
   );
 };
