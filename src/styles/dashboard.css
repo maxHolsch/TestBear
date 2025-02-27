@@ -5,39 +5,57 @@
 
 .upload-section-content {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   padding: 15px;
-  gap: 15px;
+  gap: 10px;
 }
 
 .feature-icon.camera-icon {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 40px;
+  width: 40px;
   height: 40px;
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 50%;
   padding: 8px;
+  margin-bottom: 10px;
 }
 
 .upload-text-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 10px;
+  width: 100%;
+}
+
+.section-name {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .coming-soon-container {
-  margin-top: 5px;
+  margin: 5px 0;
+}
+
+.section-progress.coming-soon-badge {
+  font-size: 0.85rem;
+  color: #666;
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 .upload-description-container {
-  padding: 0 15px 15px 15px;
+  padding: 10px 0;
+  margin-top: 5px;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .upload-description {
-  margin: 10px 0 0 0;
+  margin: 5px 0 0 0;
   font-size: 0.9rem;
   color: #666;
   line-height: 1.4;
@@ -51,17 +69,11 @@
 }
 
 .module-section.disabled {
-  padding: 0;
+  padding: 15px;
   overflow: hidden;
 }
 
 /* Improve spacing in section-name and progress indicators */
-.section-name {
-  font-weight: 500;
-  margin-bottom: 6px;
-  display: block;
-}
-
 .section-progress {
   font-size: 0.85rem;
   color: #666;
